@@ -102,13 +102,6 @@ public:
         vector< vector<int> >().swap(elem);
     }
 
-    ~Matrix3D(){
-        for (int i = 0; i < 3; i++){
-            vector<int>().swap(elem[i]);
-        }
-        vector< vector<int> >().swap(elem);
-    }
-
     Matrix3D<T> operator* (T a);
 
     Vector3D<T> operator* (Vector3D<T>& v);
