@@ -102,6 +102,13 @@ public:
         vector< vector<int> >().swap(elem);
     }
 
+    ~Matrix3D(){
+        for (int i = 0; i < 3; i++){
+            vector<int>().swap(elem[i]);
+        }
+        vector< vector<int> >().swap(elem);
+    }
+
     Matrix3D<T> operator* (T a);
 
     Vector3D<T> operator* (Vector3D<T>& v);
@@ -137,18 +144,18 @@ public:
 
 template <class T>
 Matrix3D<T> Matrix3D<T>::operator* (T arg) {
-    Matrix3D<T>* matrix3D = new Matrix3D<T>();
+    Matrix3D<T> matrix3D;
     for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
-            matrix3D->elem[i][j] = this->elem[i][j] * arg;
+            matrix3D.elem[i][j] = this->elem[i][j] * arg;
         }
     }
-    return *matrix3D;
+    return matrix3D;
 }
 
 template <class T>
 Vector3D<T> Matrix3D<T>::operator*(Vector3D<T> &v) {
-    return Vector3D(elem[0][0] * v.getX() + elem[0][1] * v.getY() + elem[0][2] * v.getZ(), elem[1][0] * v.getX() + elem[1][1] * v.getY() + elem[1][2] * v.getZ(), elem[2][0] * v.getX() + elem[2][1] * v.getY() + elem[2][2] * v.getZ());
+    return Vector3D<T>(elem[0][0] * v.getX() + elem[0][1] * v.getY() + elem[0][2] * v.getZ(), elem[1][0] * v.getX() + elem[1][1] * v.getY() + elem[1][2] * v.getZ(), elem[2][0] * v.getX() + elem[2][1] * v.getY() + elem[2][2] * v.getZ());
 }
 
 template <class T>
@@ -206,8 +213,7 @@ bool Matrix3D<T>::operator!=(Matrix3D<T> &m) {
 
 template <class T>
 Vector3D<T> Vector3D<T>::operator*(Matrix3D<T>& m) {
-    Vector3D* vector3D = new Vector3D<T>(m.elem[0][0] * x + m.elem[1][0] * y + m.elem[2][0] * z, m.elem[0][1] * x + m.elem[1][1] * y + m.elem[2][1] * z, m.elem[0][2] * x + m.elem[1][2] * y + m.elem[2][2] * z);
-    return *vector3D;
+    return Vector3D<T>(m.elem[0][0] * x + m.elem[1][0] * y + m.elem[2][0] * z, m.elem[0][1] * x + m.elem[1][1] * y + m.elem[2][1] * z, m.elem[0][2] * x + m.elem[1][2] * y + m.elem[2][2] * z);
 }
 
 template<class T>
@@ -261,5 +267,5 @@ T Vector3D<T>::operator*(const Vector3D<T> &v1) {
 
 template <class T>
 Vector3D<T> Vector3D<T>::vect_mult(Vector3D<T> &a, Vector3D<T> &b) {
-    return Vector3D(a.getY() * b.getZ() - a.getZ() * b.getY(), a.getZ() * b.getX() - a.getX() * b.getZ(), a.getX() * b.getY() - a.getY() * b.getX());
+    return Vector3D<T>(a.getY() * b.getZ() - a.getZ() * b.getY(), a.getZ() * b.getX() - a.getX() * b.getZ(), a.getX() * b.getY() - a.getY() * b.getX());
 }
